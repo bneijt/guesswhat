@@ -3,10 +3,12 @@ package bneijt.guesswhat;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class MemorySecretNumberRepository implements SecretNumberRespository {
 	
 	private final Map<String, SecretNumber> secrets;
-	
 	
 	public MemorySecretNumberRepository() {
 		this.secrets = new HashMap<String, SecretNumber>();
