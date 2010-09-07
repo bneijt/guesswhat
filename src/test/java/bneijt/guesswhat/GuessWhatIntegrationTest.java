@@ -8,6 +8,6 @@ public class GuessWhatIntegrationTest {
 @Test
 public void shouldLoadConfiguration() throws Exception {
 	//load application context
-	new ClassPathXmlApplicationContext("guess-what-root.xml");
+	new ClassPathXmlApplicationContext("WEB-INF/applicationContext.xml");
 }
 }
