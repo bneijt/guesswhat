@@ -1,0 +1,61 @@
+body {
+    font-family: 'Bitstream Vera Sans', Verdana, sans-serif;
+    margin: 0.5em 2em 0 2em;
+}
+a {
+  color: blue;
+    text-decoration: none;
+}
+a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+.textbox {
+    width: 30em;
+}
+.page {
+    padding: 0 10% 0 10%;
+}
+.padded {
+    padding: 1em;
+}
+
+iframe {
+    width: 103%;
+    height: 104%;
+/*
+  overflow-x: hidden;
+  overflow-y: hidden;
+*/
+}
+
+.center {
+    text-align: center;
+}
+.rfloat {
+    float: right;
+    padding-right: 2em;
+    clear: both;
+}
+
+.clickable {
+    cursor: pointer;
+    font-weight: bold;
+}
+
+img {
+    border: none;
+}
+
+/* Colours */
+.gray { color: gray;}
+.gray > a { color: #3366cc;}
+.bggray {   background-color: gray;}
+.bgsilver { background-color: silver;}
+.silver {   color: silver;}
+.yellow {   color: yellow;}
+.blue { color: #3366cc;}
+.bgblue { background-color: #e5ecf9; }
+.red { color: red;}
+.green { color: green;}
+.bggreen { background-color: #ecf9e5; }
