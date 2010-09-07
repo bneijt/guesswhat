@@ -21,7 +21,8 @@
     <servlet-name>guesswhat</servlet-name>
     <url-pattern>/guesswhat/*</url-pattern>
   </servlet-mapping>
-  <welcome-file-list>
+  
+<welcome-file-list>
     <welcome-file>index.xhtml</welcome-file>
   </welcome-file-list>
 
