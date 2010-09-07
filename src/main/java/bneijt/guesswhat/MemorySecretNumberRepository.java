@@ -8,20 +8,22 @@ import org.springframework.stereotype.Component;
 @Component
 public class MemorySecretNumberRepository implements SecretNumberRespository {
 	
-	private final Map<String, SecretNumber> secrets;
+	private final Map<String, LongSecretNumber> secrets;
 	
 	public MemorySecretNumberRepository() {
-		this.secrets = new HashMap<String, SecretNumber>();
+		this.secrets = new HashMap<String, LongSecretNumber>();
 	}
 
 	@Override
 	public SecretNumber secretOf(String name) {
-		return secrets.get(name);
+		if(!secrets.containsKey(name))
+			return new ImpossiblySecretNumber();
+		return this.secrets.get(name);
 	}
 
 	@Override
-	public SecretNumber rememberSecret(String name, SecretNumber secretNumber) {
-		secrets.put(name, secretNumber);
+	public SecretNumber rememberSecret(String name, LongSecretNumber secretNumber) {
+		this.secrets.put(name, secretNumber);
 		return secretNumber;
 	}
 

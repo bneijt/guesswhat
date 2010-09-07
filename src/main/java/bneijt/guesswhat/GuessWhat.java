@@ -1,5 +1,6 @@
 package bneijt.guesswhat;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,9 +13,8 @@ public class GuessWhat {
 	
 	private final SecretNumberRespository secrets;
 	
-	//@Autowired
-	public GuessWhat(){//SecretNumberRespository secrets) {
-		SecretNumberRespository secrets = new MemorySecretNumberRepository();
+	@Autowired
+	public GuessWhat(SecretNumberRespository secrets) {
 		Assert.notNull(secrets, "Need a SecretNumberRepository");
 		this.secrets = secrets;
 	}
@@ -35,7 +35,7 @@ public class GuessWhat {
 	@ResponseBody
 	@RequestMapping(value = "/set/{name}/{value}")
 	public String set(@PathVariable String name, @PathVariable long value) {
-		SecretNumber secret = this.secrets.rememberSecret(name, new SecretNumber(value));
+		SecretNumber secret = this.secrets.rememberSecret(name, new LongSecretNumber(value));
 		
 		return "Secret number set to: " + secret;
 	}
