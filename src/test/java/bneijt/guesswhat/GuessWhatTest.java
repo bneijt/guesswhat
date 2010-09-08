@@ -14,7 +14,7 @@ public class GuessWhatTest {
 	@Before
 	public void initializeController()
 	{
-		//controller = new GuessWhat(repository );
+		controller = new GuessWhat(repository );
 	}
 	
 	@Test
