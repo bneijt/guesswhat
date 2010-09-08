@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+
 
 @Controller
 public class GuessWhat {
@@ -19,17 +21,27 @@ public class GuessWhat {
 		this.secrets = secrets;
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "/test")
-	public String guess() {
-		return "ok";
-	}
 
 	@ResponseBody
 	@RequestMapping(value = "/guess/{name}/{guess}")
 	public String guess(@PathVariable String name, @PathVariable long guess) {
+		//Bare metal approach to json
 		SecretNumber secret = secrets.secretOf(name);
-		return secret.guess(guess) ? "Right!" : "Wrong :(";
+		Gson gson = new Gson();
+		return gson.toJson(secret.guess(guess));
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/people/list")
+	public String peopleList() {
+		//Bare metal approach to html. Hackers, please inject your content here!
+		String c = "<html><body><ul>";
+		for(String person : secrets.people())
+		{
+			c += "<span classname=\"person\">" + person + "</span>";
+		}
+		c += "</ul></body></html>";
+		return c;
 	}
 
 	@ResponseBody
@@ -37,7 +49,8 @@ public class GuessWhat {
 	public String set(@PathVariable String name, @PathVariable long value) {
 		SecretNumber secret = this.secrets.rememberSecret(name, new LongSecretNumber(value));
 		
-		return "Secret number set to: " + secret;
+		Gson gson = new Gson();
+		return gson.toJson(secret);//TODO Set response content type!
 	}
 
 }

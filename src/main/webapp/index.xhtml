@@ -1,28 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
     "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" >
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-  <meta content="text/html; charset=UTF-8" http-equiv="content-type" />
+<meta content="text/html; charset=UTF-8" http-equiv="content-type" />
 
 
-  <title>Projects listing</title>  
-    <link rel="stylesheet" href="base.css" type="text/css" media="screen" />
+<title>Guess what</title>
+<link rel="stylesheet" href="base.css" type="text/css" media="screen" />
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script>//<![CDATA[
+function register() {
+    var name = $("#name").val();
+    var number = $("#number").val();
+    alert(name);
+    //TODO This will fail when name or number contains a special value (like "/")
+	$.getJSON("guesswhat/set/" + name + "/" + number,
+	        function(data){
+	          $.each(data.items, function(i,item){
+	            $("#name").hide();
+	            $("#number").hide();
+	            $(".guessfield").show();
+	          });
+	});
+    return true;
+ }
+function guess(name, number) {
+    //TODO This will fail when name or number contains a special value (like "/")
+    $.getJSON("guess/" + name + "/" + number,
+            function(data){
+              $.each(data.items, function(i,item){
+                alert(item);
+                //$("<img/>").attr("src", item.media.m).appendTo("#images");
+              });
+    });
+ 
+}
+$(document).ready( function(){
+  //TODO register timed reloader
+    $("#people").load("guesswhat/people/list"); 
+});
+//]]></script>
 </head>
 
 <body>
 <div class="page">
-    <h1 class="center">Guess what...</h1>
-    
- <div class="center">
-     
-     <div>
-         <form action="/guess/setguess" method="get">
-             <p><input type="text" /></p>
-         </form>
- 	</div>
- </div>
+<h1 class="center">Guess what...</h1>
+
+<div class="center">
+<form action="" onsubmit="return register()">
+<p>Your name: <input type="text" id="name"></input></p>
+<p>Your number: <input type="text" id="number"></input></p>
+<p><input type="submit"></input></p>
+</form>
+<div id="people" />
+
+</div>
 </div>
 
-  </body>
+</body>
 </html>

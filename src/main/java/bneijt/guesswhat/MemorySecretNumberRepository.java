@@ -2,6 +2,7 @@ package bneijt.guesswhat;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.stereotype.Component;
 
@@ -26,5 +27,12 @@ public class MemorySecretNumberRepository implements SecretNumberRespository {
 		this.secrets.put(name, secretNumber);
 		return secretNumber;
 	}
+
+	@Override
+	public Set<String> people() {
+		return secrets.keySet();
+	}
+	
+	
 
 }
