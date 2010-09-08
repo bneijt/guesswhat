@@ -7,6 +7,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class SecretNumberTest {
+	
 	@Test
 	public void shouldVerifyCorrectNumber() throws Exception {
 		// Make secret number (given)

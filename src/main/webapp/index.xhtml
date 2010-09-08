@@ -13,32 +13,39 @@
 function register() {
     var name = $("#name").val();
     var number = $("#number").val();
-    alert(name);
     //TODO This will fail when name or number contains a special value (like "/")
 	$.getJSON("guesswhat/set/" + name + "/" + number,
 	        function(data){
-	          $.each(data.items, function(i,item){
-	            $("#name").hide();
-	            $("#number").hide();
-	            $(".guessfield").show();
-	          });
+	            $("#registerForm").hide();
+              reloadPeople();
 	});
-    return true;
+    return false;
  }
-function guess(name, number) {
+function reloadPeople(){
+	//Load the poeple list
+    $("#people").load("guesswhat/people/list", function(){
+        //Link up the elements to the guess handler
+        $(".guessfield").change(function(){guess(this);});
+        });
+}
+function guess(personfieldObject) {
     //TODO This will fail when name or number contains a special value (like "/")
-    $.getJSON("guess/" + name + "/" + number,
-            function(data){
-              $.each(data.items, function(i,item){
-                alert(item);
+    var personfield = $(personfieldObject);
+    var number = personfield.val();
+    var name = personfield.prev().text();
+    $.getJSON("guesswhat/guess/" + name + "/" + number,
+            function(item){
+                if(item[0] == true)
+                    personfield.removeClass('red').addClass('green');
+                else
+                    personfield.removeClass('green').addClass('red');
                 //$("<img/>").attr("src", item.media.m).appendTo("#images");
               });
-    });
  
 }
 $(document).ready( function(){
   //TODO register timed reloader
-    $("#people").load("guesswhat/people/list"); 
+    reloadPeople();
 });
 //]]></script>
 </head>
@@ -48,7 +55,7 @@ $(document).ready( function(){
 <h1 class="center">Guess what...</h1>
 
 <div class="center">
-<form action="" onsubmit="return register()">
+<form action="" onsubmit="return register()" id="registerForm">
 <p>Your name: <input type="text" id="name"></input></p>
 <p>Your number: <input type="text" id="number"></input></p>
 <p><input type="submit"></input></p>

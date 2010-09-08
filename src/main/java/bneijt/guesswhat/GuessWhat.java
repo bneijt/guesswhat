@@ -28,7 +28,7 @@ public class GuessWhat {
 		//Bare metal approach to json
 		SecretNumber secret = secrets.secretOf(name);
 		Gson gson = new Gson();
-		return gson.toJson(secret.guess(guess));
+		return "[" + gson.toJson(secret.guess(guess)) + "]";
 	}
 	
 	@ResponseBody
@@ -38,7 +38,7 @@ public class GuessWhat {
 		String c = "<html><body><ul>";
 		for(String person : secrets.people())
 		{
-			c += "<span classname=\"person\">" + person + "</span>";
+			c += "<li><span classname=\"person\">" + person + "</span>: <input type=\"text\" class=\"guessfield\" /></li>";
 		}
 		c += "</ul></body></html>";
 		return c;
