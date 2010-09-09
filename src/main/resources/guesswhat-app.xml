@@ -44,7 +44,7 @@
      
   <bean id="validator"
       class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>   
-    <bean name="secretRepository" class="bneijt.guesswhat.MemorySecretNumberRepository" />
+    <bean name="secretRepository" class="bneijt.guesswhat.MongoDBSecretNumberRepository" />
     <bean name="guessWhat" class="bneijt.guesswhat.GuessWhat">
     <constructor-arg><ref bean="secretRepository" /></constructor-arg>
     </bean>
