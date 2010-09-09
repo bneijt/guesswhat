@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+		  "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+	 <bean name="json4" class="org.springframework.web.servlet.view.json.JsonView">
+	    <property name="encoding"><value>UTF-8</value></property>
+	    <property name="contentType"><value>application/json</value></property>
+	    <property name="jsonWriter"><ref bean="xstreamJsonWriter"/></property>
+
+    	<property name="jsonErrors">
+	    	<list>
+	        	<ref bean="statusError" />
+	        </list>
+        </property>
+    </bean>
+    <bean name="xstreamJsonWriter" class="org.springframework.web.servlet.view.json.writer.xstream.XStreamJsonStringWriter">
+    	<property name="convertAllMapValues"><value>true</value></property>
+    </bean>
+
+    
+     <bean name="sojoJsonWriter2" class="org.springframework.web.servlet.view.json.writer.sojo.SojoJsonStringWriter">
+    	<property name="convertAllMapValues"><value>true</value></property>
+    	<property name="enableJsonConfigSupport"><value>true</value></property>
+    </bean>
+	
+	<bean name="json2" class="org.springframework.web.servlet.view.json.JsonView">
+	    <property name="encoding"><value>UTF-8</value></property>
+	    <property name="contentType"><value>application/json</value></property>
+	    <property name="jsonWriter"><ref bean="jsonlibJsonWriter"/></property>
+    	<property name="jsonErrors">
+	    	<list>
+	        	<ref bean="statusError" />
+	        	<ref bean="modelflagError" />
+	        </list>
+        </property>
+    </bean>
+	
+	<bean name="jsonlibJsonWriter" class="org.springframework.web.servlet.view.json.writer.jsonlib.JsonlibJsonStringWriter">
+    	<property name="enableJsonConfigSupport"><value>true</value></property>
+    </bean>
+	
+    <bean name="json1" class="org.springframework.web.servlet.view.json.JsonView">
+	    <property name="encoding"><value>UTF-8</value></property>
+	    <property name="contentType"><value>application/json</value></property>
+	    <property name="jsonWriter"><ref bean="sojoJsonWriter"/></property>
+    	<property name="jsonErrors">
+	    	<list>
+	        	<ref bean="statusError" />
+	        	<ref bean="modelflagError" />
+	        </list>
+        </property>
+    </bean>
+    
+    <bean name="sojoJsonWriter" class="org.springframework.web.servlet.view.json.writer.sojo.SojoJsonStringWriter">
+    	<property name="convertAllMapValues"><value>true</value></property>
+    </bean>
+	
+	<bean name="statusError" class="org.springframework.web.servlet.view.json.error.HttpStatusError">
+		<property name="errorCode"><value>311</value></property>
+	</bean>
+	<bean name="modelflagError" class="org.springframework.web.servlet.view.json.error.ModelFlagError">
+		<property name="name"><value>failure</value></property>
+		<property name="value"><value>true</value></property>
+	</bean>
+	
+</beans>

@@ -14,13 +14,36 @@
 
 
 
-    <mvc:annotation-driven />
+    <!--  <mvc:annotation-driven />  -->
+    <!-- 
+<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+  <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+  <property name="prefix" value="/WEB-INF/jsp/"/>
+  <property name="suffix" value=".jsp"/>
+  <! - -  <property name="contentType" value="application/json" /> 
+   - - >
+</bean> 
+-->
+    <bean name="viewResolver" 
+        class="org.springframework.web.servlet.view.XmlViewResolver" />
 
-     <bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+<property name="webBindingInitializer">
+<!-- Configures Spring MVC DataBinder instances 
+    If you disable this, you will get no warnings or error, and your security will be completely broken.
+-->
+<bean class="org.springframework.web.bind.support.ConfigurableWebBindingInitializer">
+<property name="validator" ref="validator" />
+</bean>
+</property>
+</bean>
+
+
       
 <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />
      
-     
+  <bean id="validator"
+      class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>   
     <bean name="secretRepository" class="bneijt.guesswhat.MemorySecretNumberRepository" />
     <bean name="guessWhat" class="bneijt.guesswhat.GuessWhat">
     <constructor-arg><ref bean="secretRepository" /></constructor-arg>

@@ -8,21 +8,15 @@
 
 <title>Guess what</title>
 <link rel="stylesheet" href="base.css" type="text/css" media="screen" />
-<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="jquery-latest.min.js"></script>
 <script>//<![CDATA[
 function register() {
-    var name = $("#name").val();
-    var number = $("#number").val();
-    //TODO This will fail when name or number contains a special value (like "/")
-	$.getJSON("guesswhat/set/" + name + "/" + number,
-	        function(data){
-	            $("#registerForm").hide();
-              reloadPeople();
-	});
+    $("#registerFormContainer").load("guesswhat/set/", $("#secretNumberForm").serializeArray());
     return false;
  }
 function reloadPeople(){
 	//Load the poeple list
+    //TODO Inject any people, instead of overwritting everything.
     $("#people").load("guesswhat/people/list", function(){
         //Link up the elements to the guess handler
         $(".guessfield").change(function(){guess(this);});
@@ -39,13 +33,14 @@ function guess(personfieldObject) {
                     personfield.removeClass('red').addClass('green');
                 else
                     personfield.removeClass('green').addClass('red');
-                //$("<img/>").attr("src", item.media.m).appendTo("#images");
               });
  
 }
 $(document).ready( function(){
-  //TODO register timed reloader
-    reloadPeople();
+    $("#registerFormContainer").load("guesswhat/set/", function() {
+        //To early to register, TODO: $("#registerFormContainer form").sumbit(register);
+        });
+    setInterval(reloadPeople, 10000);
 });
 //]]></script>
 </head>
@@ -54,15 +49,10 @@ $(document).ready( function(){
 <div class="page">
 <h1 class="center">Guess what...</h1>
 
-<div class="center">
-<form action="" onsubmit="return register()" id="registerForm">
-<p>Your name: <input type="text" id="name"></input></p>
-<p>Your number: <input type="text" id="number"></input></p>
-<p><input type="submit"></input></p>
-</form>
+<div class="center" id="registerFormContainer"></div>
+
 <div id="people" />
 
-</div>
 </div>
 
 </body>
