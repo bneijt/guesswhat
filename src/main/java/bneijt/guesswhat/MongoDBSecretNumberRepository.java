@@ -38,7 +38,7 @@ public class MongoDBSecretNumberRepository implements SecretNumberRespository {
 		BasicDBObject doc = new BasicDBObject();
 
         doc.put("name", name);
-        doc.put("number", secretNumber);
+        doc.put("number", secretNumber.getValue()); ///TODO UGLY! There should actually be a good way to serialize the secretNumber or something like that.
 
         coll.insert(doc);
 

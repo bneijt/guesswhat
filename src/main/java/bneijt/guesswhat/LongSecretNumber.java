@@ -11,5 +11,9 @@ public class LongSecretNumber implements SecretNumber {
 	public boolean guess(long guess) {
 		return guess == secret;
 	}
+	public long getValue()
+	{
+			return secret;
+	}
 
 }
