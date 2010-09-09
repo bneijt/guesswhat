@@ -23,7 +23,7 @@ public class GuessWhatTest {
 	@Test
 	public void shouldRememberSecret() throws Exception {
 		//given(repository.rememberSecret(eq("willem"), isA(SecretNumber.class))).willReturn(isA(SecretNumber.class));
-		//controller.set("willem", 120, response);
+		//controller.set(new SecretNumberForm("willem", 120), response);
 		//verify(repository).rememberSecret(eq("willem"), isA(LongSecretNumber.class));
 		
 	}
