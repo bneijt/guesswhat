@@ -6,6 +6,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class SecretNumberForm {
+	public SecretNumberForm() {
+	}
+	public SecretNumberForm(String name, long number) {
+		this.name = name;
+		this.number = number;
+	}
+
 	public String getName() {
 		return name;
 	}

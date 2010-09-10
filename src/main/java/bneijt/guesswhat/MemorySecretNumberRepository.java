@@ -9,10 +9,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class MemorySecretNumberRepository implements SecretNumberRespository {
 	
-	private final Map<String, LongSecretNumber> secrets;
+	private final Map<String, SecretNumber> secrets;
 	
 	public MemorySecretNumberRepository() {
-		this.secrets = new HashMap<String, LongSecretNumber>();
+		this.secrets = new HashMap<String, SecretNumber>();
 	}
 
 	@Override
@@ -23,7 +23,9 @@ public class MemorySecretNumberRepository implements SecretNumberRespository {
 	}
 
 	@Override
-	public SecretNumber rememberSecret(String name, LongSecretNumber secretNumber) {
+	public SecretNumber rememberSecret(String name, SecretNumber secretNumber) {
+		if(name.isEmpty())
+			throw new IllegalArgumentException("The given name is empty.");
 		this.secrets.put(name, secretNumber);
 		return secretNumber;
 	}

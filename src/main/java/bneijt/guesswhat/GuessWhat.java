@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 //import javax.servlet.http.HttpServletResponse;
-import com.google.gson.Gson;
 
 @Controller
 public class GuessWhat {
@@ -28,29 +27,29 @@ public class GuessWhat {
 		this.secrets = secrets;
 	}
 
+	
 	@RequestMapping(value = "/test")
-	public ModelAndView guess() {
+	public @ResponseBody Map<String, ? extends Object> asfd() {
 		Map<String, String> model = new HashMap<String, String>();
-		model.put("firstname", "Peter");
-		model.put("secondname", "Schmitt");
-
-		return new ModelAndView("jsonView", model);
+		return model;
 	}
 
-	@ResponseBody
+	
 	@RequestMapping(value = "/guess/{name}/{guess}")
-	public String guess(@PathVariable String name, @PathVariable long guess) {
+	public @ResponseBody boolean guess(@PathVariable String name, @PathVariable long guess) {
 		// Bare metal approach to json
 		SecretNumber secret = secrets.secretOf(name);
-		Gson gson = new Gson();
-		return "[" + gson.toJson(secret.guess(guess)) + "]";
+		return secret.guess(guess);
 	}
 
-	@ResponseBody
 	@RequestMapping(value = "/people/list")
-	public String peopleList() {
+	public ModelAndView peopleList() {
 		// Bare metal approach to html. Hackers, please inject your content
 		// here!
+		ModelAndView mav = new ModelAndView("peopleList");
+		mav.addObject("people", secrets.people());
+		return mav;
+		/*
 		String c = "<html><body><ul>";
 		for (String person : secrets.people()) {
 			c += "<li><span classname=\"person\">"
@@ -59,6 +58,7 @@ public class GuessWhat {
 		}
 		c += "</ul></body></html>";
 		return c;
+		*/
 	}
 
 	@RequestMapping(value = "/set/")

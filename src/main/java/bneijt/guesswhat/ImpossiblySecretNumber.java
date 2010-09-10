@@ -10,4 +10,9 @@ public class ImpossiblySecretNumber implements SecretNumber {
 		return false;
 	}
 
+	@Override
+	public long getValue() {
+		return 0;
+	}
+
 }

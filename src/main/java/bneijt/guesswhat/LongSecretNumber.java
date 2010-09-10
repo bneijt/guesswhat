@@ -16,4 +16,27 @@ public class LongSecretNumber implements SecretNumber {
 			return secret;
 	}
 
+	@Override
+	public int hashCode() {
+		return (int) secret;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (getClass() != obj.getClass()) {
+			return false;
+		}
+		LongSecretNumber other = (LongSecretNumber) obj;
+		if (secret != other.secret) {
+			return false;
+		}
+		return true;
+	}
+
 }

@@ -12,10 +12,11 @@
 <script>//<![CDATA[
 function register() {
     $("#registerFormContainer").load("guesswhat/set/", $("#secretNumberForm").serializeArray());
+    reloadPeople();
     return false;
  }
 function reloadPeople(){
-	//Load the poeple list
+	//Load the people list
     //TODO Inject any people, instead of overwritting everything.
     $("#people").load("guesswhat/people/list", function(){
         //Link up the elements to the guess handler
@@ -29,7 +30,7 @@ function guess(personfieldObject) {
     var name = personfield.prev().text();
     $.getJSON("guesswhat/guess/" + name + "/" + number,
             function(item){
-                if(item[0] == true)
+                if(item == true)
                     personfield.removeClass('red').addClass('green');
                 else
                     personfield.removeClass('green').addClass('red');
@@ -40,7 +41,7 @@ $(document).ready( function(){
     $("#registerFormContainer").load("guesswhat/set/", function() {
         //To early to register, TODO: $("#registerFormContainer form").sumbit(register);
         });
-    setInterval(reloadPeople, 10000);
+    //setInterval(reloadPeople, 10000);
 });
 //]]></script>
 </head>

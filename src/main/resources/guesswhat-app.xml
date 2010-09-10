@@ -14,7 +14,7 @@
 
 
 
-    <!--  <mvc:annotation-driven />  -->
+      <mvc:annotation-driven /> 
      
 <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
   <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
@@ -23,10 +23,6 @@
   <!--  <property name="contentType" value="application/json" /> 
    -->
 </bean> 
-<!--
-    <bean name="viewResolver" 
-        class="org.springframework.web.servlet.view.XmlViewResolver" />
--->
 <bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
 <property name="webBindingInitializer">
 <!-- Configures Spring MVC DataBinder instances 

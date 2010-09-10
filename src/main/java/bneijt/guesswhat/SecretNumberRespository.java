@@ -6,7 +6,7 @@ public interface SecretNumberRespository {
 
 	SecretNumber secretOf(String name);
 
-	SecretNumber rememberSecret(String name, LongSecretNumber secretNumber);
+	SecretNumber rememberSecret(String name, SecretNumber secretNumber);
 
 	Set<String> people();
 
