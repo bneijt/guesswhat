@@ -25,14 +25,6 @@ public class GuessWhat {
 		this.secrets = secrets;
 	}
 
-	
-	@RequestMapping(value = "/test")
-	public @ResponseBody Map<String, ? extends Object> asfd() {
-		Map<String, String> model = new HashMap<String, String>();
-		return model;
-	}
-
-	
 	@RequestMapping(value = "/guess/{name}/{guess}")
 	public @ResponseBody boolean guess(@PathVariable String name, @PathVariable long guess) {
 		SecretNumber secret = secrets.secretOf(name);
